@@ -22,10 +22,8 @@ TEST(PiezasTest, constructorTest)
     for(int y = 0; y < 3; ++y){
       if(game.pieceAt(y, x) != Blank){
         flag = false;
-        std::cout<<game.pieceAt(y, x)<<" ";
       }
     }
-    std::cout<<std::endl;
   }
 	ASSERT_TRUE(flag);
 }
@@ -53,4 +51,21 @@ TEST(PiezasTest, dropPieceBasic)
   Piezas game;
   game.dropPiece(0);
 	ASSERT_TRUE((game.pieceAt(0,0) == X));
+}
+
+TEST(PiezasTest, dropPieceFillRow)
+{
+  Piezas game;
+  game.dropPiece(0);
+  game.dropPiece(0);
+  game.dropPiece(0);
+  Piece test = game.dropPiece(0);
+	ASSERT_TRUE((test == Blank));
+}
+
+TEST(PiezasTest, dropPieceOutOfBounds)
+{
+  Piezas game;
+  Piece test = game.dropPiece(-1);
+	ASSERT_TRUE((test == Invalid));
 }
