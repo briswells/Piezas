@@ -43,7 +43,7 @@ TEST(PiezasTest, pieceAtOutOfBoundsNeg)
 TEST(PiezasTest, pieceAtOutOfBoundsPos)
 {
   Piezas game;
-	ASSERT_FALSE((game.pieceAt(10,10) == Blank));
+	ASSERT_TRUE((game.pieceAt(10,10) == Invalid));
 }
 
 TEST(PiezasTest, dropPieceBasic)
@@ -161,6 +161,25 @@ TEST(PiezasTest, gameStateOWin)
   game.dropPiece(3);
   game.dropPiece(3);
   game.dropPiece(1);
+  Piece test = game.gameState();
+	ASSERT_FALSE((test == X));
+}
+
+TEST(PiezasTest, gameStateParRowWin)
+{
+  Piezas game;
+  game.dropPiece(0);
+  game.dropPiece(1);
+  game.dropPiece(2);
+  game.dropPiece(0);
+  game.dropPiece(3);
+  game.dropPiece(2);
+  game.dropPiece(1);
+  game.dropPiece(1);
+  game.dropPiece(3);
+  game.dropPiece(2);
+  game.dropPiece(0);
+  game.dropPiece(3);
   Piece test = game.gameState();
 	ASSERT_FALSE((test == X));
 }
