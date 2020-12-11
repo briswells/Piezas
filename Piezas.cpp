@@ -22,7 +22,8 @@
 **/
 Piezas::Piezas():
     board(std::vector< std::vector<Piece> >(4, std::vector<Piece>(3, Blank))),
-    turn(X) {}
+    turn(X)
+{}
 
 /**
  * Resets each board location to the Blank Piece value, with a board of the
@@ -40,8 +41,28 @@ void Piezas::reset()
  * Out of bounds coordinates return the Piece Invalid value
  * Trying to drop a piece where it cannot be placed loses the player's turn
 **/
-Piece Piezas::dropPiece(int column)//do version control
+Piece Piezas::dropPiece(int column)
 {
+  Piece cur = turn;
+  if(turn == X){
+    turn = O;
+  }
+  else{
+    turn = X;
+  }
+  if (column >= 0 && column < 4){
+    if(board[column][2] == Blank){
+      for(int i = 0; i < (int)board[column].size(); ++i){
+        if(board[column][i] == Blank){
+          board[column][i] = cur;
+          return cur;
+        }
+      }
+    }
+    else{
+      return Blank;
+    }
+  }
   return Invalid;
 }
 
