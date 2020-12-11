@@ -53,7 +53,7 @@ TEST(PiezasTest, dropPieceBasic)
 	ASSERT_TRUE((game.pieceAt(0,0) == X));
 }
 
-TEST(PiezasTest, dropPieceFillRow)
+TEST(PiezasTest, dropPieceFullRow)
 {
   Piezas game;
   game.dropPiece(0);
@@ -143,6 +143,24 @@ TEST(PiezasTest, gameStateVerticalWin)
   game.dropPiece(1);
   game.dropPiece(2);
   Piece test = game.gameState();
-  std::cout<<test<<std::endl;
 	ASSERT_TRUE((test == X));
+}
+
+TEST(PiezasTest, gameStateOWin)
+{
+  Piezas game;
+  game.dropPiece(0);
+  game.dropPiece(0);
+  game.dropPiece(1);
+  game.dropPiece(1);
+  game.dropPiece(2);
+  game.dropPiece(2);
+  game.dropPiece(0);
+  game.dropPiece(3);
+  game.dropPiece(2);
+  game.dropPiece(3);
+  game.dropPiece(3);
+  game.dropPiece(1);
+  Piece test = game.gameState();
+	ASSERT_FALSE((test == X));
 }
