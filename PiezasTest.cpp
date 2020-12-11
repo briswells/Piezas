@@ -87,3 +87,62 @@ TEST(PiezasTest, resetTest)
   }
 	ASSERT_TRUE(flag);
 }
+
+TEST(PiezasTest, gameStateUnfinished)
+{
+  Piezas game;
+  game.dropPiece(0);
+  Piece test = game.gameState();
+	ASSERT_TRUE((test == Invalid));
+}
+
+TEST(PiezasTest, gameStateTie)
+{
+  Piezas game;
+  for(int i = 0; i < 4; ++i){
+    game.dropPiece(i);
+    game.dropPiece(i);
+    game.dropPiece(i);
+  }
+  Piece test = game.gameState();
+	ASSERT_FALSE((test == X || test == O));
+}
+
+TEST(PiezasTest, gameStateHorizontalWin)
+{
+  Piezas game;
+  game.dropPiece(0);
+  game.dropPiece(0);
+  game.dropPiece(1);
+  game.dropPiece(1);
+  game.dropPiece(2);
+  game.dropPiece(2);
+  game.dropPiece(3);
+  game.dropPiece(0);
+  game.dropPiece(3);
+  game.dropPiece(2);
+  game.dropPiece(3);
+  game.dropPiece(1);
+  Piece test = game.gameState();
+	ASSERT_TRUE((test == X));
+}
+
+TEST(PiezasTest, gameStateVerticalWin)
+{
+  Piezas game;
+  game.dropPiece(0);
+  game.dropPiece(1);
+  game.dropPiece(2);
+  game.dropPiece(3);
+  game.dropPiece(0);
+  game.dropPiece(2);
+  game.dropPiece(0);
+  game.dropPiece(1);
+  game.dropPiece(3);
+  game.dropPiece(3);
+  game.dropPiece(1);
+  game.dropPiece(2);
+  Piece test = game.gameState();
+  std::cout<<test<<std::endl;
+	ASSERT_TRUE((test == X));
+}
