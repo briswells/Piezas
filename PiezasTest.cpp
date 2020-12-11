@@ -18,13 +18,14 @@ TEST(PiezasTest, constructorTest)
 {
   Piezas game;
   bool flag = true;
-  for(int i = 0; i < 4; ++i){
-    for(int j = 0; j < 3; ++j){
-      if(game.pieceAt(i, j) != Blank){
+  for(int x = 0; x < 4; ++x){
+    for(int y = 0; y < 3; ++y){
+      if(game.pieceAt(y, x) != Blank){
         flag = false;
-        break;
+        std::cout<<game.pieceAt(y, x)<<" ";
       }
     }
+    std::cout<<std::endl;
   }
 	ASSERT_TRUE(flag);
 }
@@ -33,4 +34,23 @@ TEST(PiezasTest, pieceAt)
 {
   Piezas game;
 	ASSERT_TRUE((game.pieceAt(0,0) == Blank));
+}
+
+TEST(PiezasTest, pieceAtOutOfBoundsNeg)
+{
+  Piezas game;
+	ASSERT_FALSE((game.pieceAt(-1,-1) == Blank));
+}
+
+TEST(PiezasTest, pieceAtOutOfBoundsPos)
+{
+  Piezas game;
+	ASSERT_FALSE((game.pieceAt(10,10) == Blank));
+}
+
+TEST(PiezasTest, dropPieceBasic)
+{
+  Piezas game;
+  game.dropPiece(0);
+	ASSERT_TRUE((game.pieceAt(0,0) == X));
 }
