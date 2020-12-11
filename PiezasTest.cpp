@@ -69,3 +69,21 @@ TEST(PiezasTest, dropPieceOutOfBounds)
   Piece test = game.dropPiece(-1);
 	ASSERT_TRUE((test == Invalid));
 }
+
+TEST(PiezasTest, resetTest)
+{
+  Piezas game;
+  game.dropPiece(0);
+  game.dropPiece(0);
+  game.dropPiece(0);
+  game.reset();
+  bool flag = true;
+  for(int x = 0; x < 4; ++x){
+    for(int y = 0; y < 3; ++y){
+      if(game.pieceAt(y, x) != Blank){
+        flag = false;
+      }
+    }
+  }
+	ASSERT_TRUE(flag);
+}
