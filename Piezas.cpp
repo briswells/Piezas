@@ -1,5 +1,6 @@
 #include "Piezas.h"
 #include <vector>
+#include <iostream>
 /** CLASS Piezas
  * Class for representing a Piezas vertical board, which is roughly based
  * on the game "Connect Four" where pieces are placed in a column and
@@ -90,5 +91,82 @@ Piece Piezas::pieceAt(int row, int column)
 **/
 Piece Piezas::gameState()
 {
+  int xMax(1), oMax(1), curStreak(1);
+  for(int i = 0; i < (int)board.size(); ++i){
+    curStreak = 1;
+    Piece curChecking = Blank;
+    for(int j = 0; j < (int)board[i].size(); ++j){
+      Piece curPiece = pieceAt(j, i);
+      if(curPiece == Blank){
+        return Invalid;
+      }
+      else if(curChecking == curPiece){
+        curStreak++;
+      }
+      else{
+        if(curPiece == X){
+          curChecking = X;
+          if(curStreak > oMax){
+            oMax = curStreak;
+          }
+          curStreak = 1;
+        }
+        else if(curPiece == O){
+          curChecking = O;
+          if(curStreak > xMax){
+            xMax = curStreak;
+          }
+          curStreak = 1;
+        }
+      }
+    }
+    if(curChecking == X && curStreak > xMax){
+      xMax = curStreak;
+    }
+    if(curChecking == O && curStreak > oMax){
+      oMax = curStreak;
+    }
+  }
+  for(int j = 0; j < (int)board[0].size(); ++j){
+    curStreak = 1;
+    Piece curChecking = Blank;
+    for(int i = 0; i < (int)board.size(); ++i){
+      Piece curPiece = pieceAt(j, i);
+      if(curPiece == Blank){
+        return Invalid;
+      }
+      else if(curChecking == curPiece){
+        curStreak++;
+      }
+      else{
+        if(curPiece == X){
+          curChecking = X;
+          if(curStreak > oMax){
+            oMax = curStreak;
+          }
+          curStreak = 1;
+        }
+        else if(curPiece == O){
+          curChecking = O;
+          if(curStreak > xMax){
+            xMax = curStreak;
+          }
+          curStreak = 1;
+        }
+      }
+    }
+    if(curChecking == X && curStreak > xMax){
+      xMax = curStreak;
+    }
+    if(curChecking == O && curStreak > oMax){
+      oMax = curStreak;
+    }
+  }
+  if(xMax > oMax){
+    return X;
+  }
+  else if(oMax > xMax){
+    return O;
+  }
   return Blank;
 }
